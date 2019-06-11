@@ -4,41 +4,42 @@
 		<title>Hi Fieny!</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-		<!-- jQuery -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="jquery-ui.min.js"></script> -->
         <script src="jquery.min.js"></script>
-        <script src="jquery-ui.min.js"></script>
+        <script src="jquery.touchSwipe.min.js"></script>
 		<link rel="stylesheet" href="styles.css"/>
 	</head>
-	<body>
-        <div class="grid">
-            <div class="con container1" id="1">
-                <div class="cell img4"></div>
+	<body class="body">
+        <div class="wrapper">
+            <div class="grid">
+                <div class="container1 cell img4" id="1" checker="4">
+                </div>
+                <div class="container2 cell img9" id="2" checker="9">
+                </div>
+                <div class="container3 cell img1" id="3" checker="1">
+                </div>
+                <div class="container4 cell img6" id="4" checker="6">
+                </div>
+                <div class="container5 cell img7" id="5" checker="7">
+                </div>
+                <div class="container6 cell img2" id="6" checker="2">
+                </div>
+                <div class="container7 cell img8" id="7" checker="8">
+                </div>
+                <div class="container8 cell img5" id="8" checker="5">
+                </div>
+                <div class="container9 cell img3" id="9" checker="3">
+                </div>
             </div>
-            <div class="con container2" id="2">
-                <div class="cell img9"></div>
-            </div>
-            <div class="con container3" id="3">
-                <div class="cell img1"></div>
-            </div>
-            <div class="con container4" id="4">
-                <div class="cell img6"></div>
-            </div>
-            <div class="con container5" id="5">
-                <div class="cell img7"></div>
-            </div>
-            <div class="con container6" id="6">
-                <div class="cell img2"></div>
-            </div>
-            <div class="con container7" id="7">
-                <div class="cell img8"></div>
-            </div>
-            <div class="con container8" id="8">
-                <div class="cell img5"></div>
-            </div>
-            <div class="con container9" id="9">
-                <div class="cell img3"></div>
+
+            <div class="final-block" style="display: none">
+                <div width="300px">Say YES if you want this rabbit alive, NO if you want it to be eaten and literally broke my heart :(</div>
+                <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
+                <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
+                <div id="blackRec" style="background-color: black; display: none; width:300px; height: 225px"></div>
+                <div>
+                    <button type="button" onclick="answer(true)">Yes</button>
+                    <button type="button" onclick="answer(false)">No</button>
+                </div>
             </div>
         </div>
 
@@ -46,154 +47,126 @@
             // settings
             var cellSize = 100;
             var cellGap = 10;
-            var marginTop = 10;
-            var marginLeft = 10;
-            var snapRange = 70;
+            let displacement = cellSize + cellGap;
 
-            var lastCell = null;
-            var lastCellOriginalOffset = null;
-            var movedCellOffset = null;
-            var collidingCell = null;
-            
-            var t = 0;
-            var b = 0;
-            var l = 0;
-            var r = 0;
-
-            var secondRow = marginTop + cellSize + cellGap + snapRange;
-            var thirdRow = marginTop + 2*(cellSize + cellGap) + snapRange;
-
-            var secondCol = marginLeft + cellSize + cellGap + snapRange;
-            var thirdCol = marginLeft + 2*(cellSize + cellGap) + snapRange;
-
-            var isSnap = false;
-
-            var initialPos = 0;
-            var position = 0;
-
-            function snapTo(cellPos) {
-                var posClass = '.container'+cellPos;
-                var removed = $('.container'+cellPos).children().detach();
-                $(".container"+initialPos).prepend(removed);
-                isSnap = false;
-            }
-
-            function snapToCurrent(cell) {
-                var removed = cell.detach();
-                $(".container"+position).prepend(removed);
-                isSnap = false;
-                position = 0;
-            }
-
-            // 150*150
-            $.fn.draggableXY = function(options) {
-                var defaultOptions = {
-                    distance: 5,
-                    dynamic: false
-                };
-                options = $.extend(defaultOptions, options);
-                
-                this.draggable({
-                    distance: options.distance,
-                    start: function (event, ui) {
-                        lastCellOriginalOffset = $(this).offset();
-                        ui.helper.data('draggableXY.originalPosition', ui.position || {top: 0, left: 0});
-                        ui.helper.data('draggableXY.newDrag', true);
-                        t = lastCellOriginalOffset.top - snapRange;
-                        b = lastCellOriginalOffset.top + snapRange;
-                        l = lastCellOriginalOffset.left - snapRange;
-                        r = lastCellOriginalOffset.left + snapRange;
-                        isSnap = true;
-                    },
-                    drag: function (event, ui) {
-                        var originalPosition = ui.helper.data('draggableXY.originalPosition');
-                        var deltaX = Math.abs(originalPosition.left - ui.position.left);
-                        var deltaY = Math.abs(originalPosition.top - ui.position.top);
-
-                        var newDrag = options.dynamic || ui.helper.data('draggableXY.newDrag');
-                        ui.helper.data('draggableXY.newDrag', false);
-
-                        var xMax = newDrag ? Math.max(deltaX, deltaY) === deltaX : ui.helper.data('draggableXY.xMax');
-                        ui.helper.data('draggableXY.xMax', xMax);
-
-                        var newPosition = ui.position;
-                        if(xMax) {
-                            newPosition.top = originalPosition.top;
-                        }
-                        if(!xMax){
-                            newPosition.left = originalPosition.left;
-                        }
-
-                        if (isSnap) {
-                            if (ui.offset.top < t) {
-                                position = findPosition(t, lastCellOriginalOffset.left + cellSize/2);
-                                snapTo(position);
-                            }
-
-                            if (ui.offset.top > b) {
-                                position = findPosition(b, lastCellOriginalOffset.left + cellSize/2);
-                                snapTo(position);
-                            }
-
-                            if (ui.offset.left < l) {
-                                position = findPosition(lastCellOriginalOffset.top + cellSize/2, l);
-                                snapTo(position);
-                            }
-
-                            if (ui.offset.left > r) {
-                                position = findPosition(lastCellOriginalOffset.top + cellSize/2, r);
-                                snapTo(position);
-                            }
-                        }
-
-                        return newPosition;
+            $(".grid").swipe({
+                swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+                    $(event.target).css('z-index', 4);
+                    let srcLoc = $(event.target).attr('id');
+                    let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
+                    if (targetLoc > 0) {
+                        moveCell(event.target, direction, targetLoc);
                     }
-                });
-            };
-            
-            $('.grid .cell').draggableXY();
-            $('.grid .cell').mousedown(function() {
-                $(this).css('z-index', 10);
-                lastCell = $(this);
-                initialPos = lastCell.parent().attr('id');
-                alert('click');
+                },
+                longTapThreshold: 100,
+                allowPageScroll: 'vertical'
             });
 
-            $('.grid .cell').mouseup(function() {
-                lastCell.css({'z-index': 0, top: 0, left: 0});
-                if (position !== 0) {
-                    snapToCurrent(lastCell);
+            // works only for 3x3
+            function getTargetLoc(src, direction) {
+                if (direction === 'up') {
+                    return (src - 3) > 0 ? (src - 3) : 0;
+                } else if (direction === 'down') {
+                    return (src + 3) < 10 ? (src + 3) : 0;
+                } else if (direction === 'left') {
+                    let m = src % 3;
+                    if (m === 1) {
+                        return 0;
+                    } else {
+                        return src - 1;
+                    }
+                } else if (direction === 'right') {
+                    let m = src % 3;
+                    if (m === 0) {
+                        return 0;
+                    } else {
+                        return src + 1;
+                    }
                 }
-                $('.grid .cell').off('draggableXY');
-                $('.grid .cell').draggableXY();
-                checkTheTruth();
-            });
+                return 0;
+            }
 
-            function findPosition(x, y) {
-                var row = 0;
-                var col = 0;
+            let movingTop = { top: `-=${displacement}px` };
+            let movingDown = { top: `+=${displacement}px` };
+            let movingLeft = { left: `-=${displacement}px` };
+            let movingRight = { left: `+=${displacement}px` };
 
-                if (x >= marginTop && x < snapRange) {
-                    row = 0;
-                } else if (x >= snapRange && x < secondRow) {
-                    row = 1;
-                } else if (x >= secondRow && x < thirdRow) {
-                    row = 2;
+            function moveCell(domCell, direction, targetLoc) {
+                let movement = {};
+                let reverse = {};
+                if (direction === 'up') {
+                    movement = movingTop;
+                    reverse = movingDown;
+                } else if (direction === 'down') {
+                    movement = movingDown;
+                    reverse = movingTop;
+                } else if (direction === 'left') {
+                    movement = movingLeft;
+                    reverse = movingRight;
+                } else if (direction === 'right') {
+                    movement = movingRight;
+                    reverse = movingLeft;
                 }
 
-                if (y >= marginLeft && y < snapRange) {
-                    col = 1;
-                } else if (y >= snapRange && y < secondCol) {
-                    col = 2;
-                } else if (y >= secondCol && y < thirdCol) {
-                    col = 3;
+                $(domCell).animate(movement, 500 );
+                $(`#${targetLoc}`).animate(reverse, 500 );
+                swapId($(domCell), $(`#${targetLoc}`));
+                $(domCell).css('z-index', 3);
+                if (checkTheTruth()) {
+                    $(".grid").off('swipe');
+                    animateToCenter();
+                    setTimeout(function() {
+                        showRabbit();
+                    }, 1000);
                 }
+            }
 
-                return (row*3 + col);
+            function swapId(cell1, cell2) {
+                let id1 = cell1.attr('id');
+                cell1.attr('id', cell2.attr('id'));
+                cell2.attr('id', id1);
             }
 
             function checkTheTruth() {
+                let result = true;
+                $(".grid").children().each(function(i, elm) {
+                    if ($(this).attr('id') !== $(this).attr('checker')) {
+                        result = false;
+                        return;
+                    }
+                });
+                return result;
+            }
 
+            function animateToCenter() {
+                $('#1').animate({top: '+=10', left: '+=10'}, 500);
+                $('#2').animate({top: '+=10'}, 500);
+                $('#3').animate({top: '+=10', left: '-=10'}, 500);
+                $('#4').animate({left: '+=10'}, 500);
+                $('#6').animate({left: '-=10'}, 500);
+                $('#7').animate({top: '-=10', left: '+=10'}, 500);
+                $('#8').animate({top: '-=10'}, 500);
+                $('#9').animate({top: '-=10', left: '-=10'}, 500);
+                $('.grid').children().css('border', 'none');
+            }
+
+            function showRabbit() {
+                $('.final-block').show();
+            }
+
+            function answer(accepted) {
+                if (accepted) {
+                    $('#rabbit1').show();
+                    $('#rabbit2').hide();
+                    $('#blackRec').hide();
+                } else {
+                    $('#rabbit1').hide();
+                    $('#rabbit2').show();
+                    setTimeout(function() {
+                        $('#rabbit2').hide();
+                        $('#blackRec').show();
+                    }, 1000);
+                }
             }
         </script>
 	</body>
