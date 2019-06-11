@@ -1,0 +1,93 @@
+.grid {
+    display: table;
+    border-spacing: 5px
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-size: 100% 100%;
+    border: 1px solid black;
+    position: absolute;
+}
+
+.grid .con {
+    position: absolute;
+}
+
+.container1 {
+    top: 10px;
+    left: 10px;
+}
+
+.container2 {
+    top: 10px;
+    left: 120px;
+}
+
+.container3 {
+    top: 10px;
+    left: 230px;
+}
+
+.container4 {
+    top: 120px;
+    left: 10px;
+}
+
+.container5 {
+    top: 120px;
+    left: 120px;
+}
+
+.container6 {
+    top: 120px;
+    left: 230px;
+}
+
+.container7 {
+    top: 230px;
+    left: 10px;
+}
+
+.container8 {
+    top: 230px;
+    left: 120px;
+}
+
+.container9 {
+    top: 230px;
+    left: 230px;
+}
+
+.img1 {
+    background-image: url("img2/1.png");
+}
+.img2 {
+    background-image: url("img2/2.png");
+}
+.img3 {
+    background-image: url("img2/3.png");
+}
+.img4 {
+    background-image: url("img2/4.png");
+}
+.img5 {
+    background-image: url("img2/5.png");
+}
+.img6 {
+    background-image: url("img2/6.png");
+}
+.img7 {
+    background-image: url("img2/7.png");
+}
+.img8 {
+    background-image: url("img2/8.png");
+}
+.img9 {
+    background-image: url("img2/9.png");
+}
+
+/* .pos1 {
+
+} */
