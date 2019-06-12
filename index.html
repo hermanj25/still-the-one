@@ -10,7 +10,7 @@
 	</head>
 	<body class="body">
         <div class="wrapper">
-            <div class="grid">
+            <div id="grid">
                 <div class="container1 cell img4" id="1" checker="4">
                 </div>
                 <div class="container2 cell img9" id="2" checker="9">
@@ -32,11 +32,13 @@
             </div>
 
             <div class="final-block" style="display: none">
-                <div width="300px">Say YES if you want this rabbit alive, NO if you want it to be eaten and literally broke my heart :(</div>
+                <div class="info">Say YES if you want to make my life whole.</div>
+                <div class="info">a NO will literally broke my heart :( and make this cute rabbit eaten.</div>
+                <div class="info">or you may choose not to answer right now, I can wait forever for you.</div>
                 <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
                 <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
                 <div id="blackRec" style="background-color: black; display: none; width:300px; height: 225px"></div>
-                <div>
+                <div class="btn-area">
                     <button type="button" onclick="answer(true)">Yes</button>
                     <button type="button" onclick="answer(false)">No</button>
                 </div>
@@ -49,12 +51,12 @@
             var cellGap = 10;
             let displacement = cellSize + cellGap;
 
-            $(".grid").swipe({
+            $("#grid").swipe({
                 swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
                     $(event.target).css('z-index', 4);
                     let srcLoc = $(event.target).attr('id');
                     let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
-                    if (targetLoc > 0) {
+                    if (targetLoc) {
                         moveCell(event.target, direction, targetLoc);
                     }
                 },
@@ -113,7 +115,7 @@
                 swapId($(domCell), $(`#${targetLoc}`));
                 $(domCell).css('z-index', 3);
                 if (checkTheTruth()) {
-                    $(".grid").off('swipe');
+                    $("#grid").swipe('destroy');
                     animateToCenter();
                     setTimeout(function() {
                         showRabbit();
@@ -129,7 +131,7 @@
 
             function checkTheTruth() {
                 let result = true;
-                $(".grid").children().each(function(i, elm) {
+                $("#grid").children().each(function(i, elm) {
                     if ($(this).attr('id') !== $(this).attr('checker')) {
                         result = false;
                         return;
@@ -147,7 +149,7 @@
                 $('#7').animate({top: '-=10', left: '+=10'}, 500);
                 $('#8').animate({top: '-=10'}, 500);
                 $('#9').animate({top: '-=10', left: '-=10'}, 500);
-                $('.grid').children().css('border', 'none');
+                $('#grid').children().css('border', 'none');
             }
 
             function showRabbit() {
