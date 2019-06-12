@@ -11,6 +11,26 @@
 .body {
     z-index: 1;
     background-color: black;
+    font-family: Verdana;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.welcome-screen {
+    background-color: black;
+    z-index: 10;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+#name {
+    margin-top: 40%;
 }
 
 .wrapper {
@@ -24,11 +44,27 @@
     width: 300px;
     color: white;
     padding-top: 10px;
-    font-family: Arial;
+    text-align: center;
+    font-size: 14px;
+}
+
+.img-container {
+    margin-top: 10px;
 }
 
 .btn-area {
     color: white;
+    padding-top: 13px;
+    width: 300px;
+}
+
+#btn1 {
+    margin-left: 20px;
+}
+
+#btn2 {
+    float: right;
+    margin-right: 20px;
 }
 
 .cell {
@@ -116,4 +152,131 @@
 .final-block {
     margin-top: 320px;
     margin-left: 20px;
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+#msg1 {
+    margin-right: 15px;
+}
+
+#msg2 {
+    margin-left: 18px;
+    margin-top: -10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.button::-moz-focus-inner{
+  border: 0;
+  padding: 0;
+}
+
+.button{
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  padding: 6px 20px;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid #bbb;
+  overflow: visible;
+  font: bold 13px arial, helvetica, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #555;
+  
+  background-color: #ddd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), to(rgba(255,255,255,0)));
+  background-image: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  background-image: -ms-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  background-image: -o-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  background-image: linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  
+  -webkit-transition: background-color .2s ease-out;
+  -moz-transition: background-color .2s ease-out;
+  -ms-transition: background-color .2s ease-out;
+  -o-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  background-clip: padding-box; /* Fix bleeding */
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
+  text-shadow: 0 1px 0 rgba(255,255,255, .9);
+  
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button.green, .button.red, .button.blue {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.2);
+  
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.3)), to(rgba(255,255,255,0)));
+  background-image: -webkit-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+  background-image: -ms-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+  background-image: -o-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+  background-image: linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+}
+
+/* */
+
+.button.green{
+  background-color: #57a957;
+  border-color: #57a957;
+}
+
+/* */
+
+.button.red{
+  background-color: #ca3535;
+  border-color: #c43c35;
+}
+
+#blackRec {
+    background-color: black; 
+    display: none; 
+    width:300px; 
+    height: 225px;
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
+
+.yes-answer {
+    background-color: black; 
+    display: none; 
+    z-index: 9;
+    width:100%; 
+    height: 300px;
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 100px;
 }

@@ -10,6 +10,16 @@
 	</head>
 	<body class="body">
         <div class="wrapper">
+            <div class="welcome-screen">
+                <div class="welcome-screen-content">
+                    <img src="hername.svg" alt="name" id="name" class="hidden">
+                    <img src="msg1.svg" alt="name" id="msg1" class="hidden">
+                    <img src="msg2.svg" alt="name" id="msg2" class="hidden">
+                </div>
+            </div>
+            <div class="yes-answer">Thank you for saying yes!
+                <br>I will love you with all my heart
+            </div>
             <div id="grid">
                 <div class="container1 cell img4" id="1" checker="4">
                 </div>
@@ -32,37 +42,56 @@
             </div>
 
             <div class="final-block" style="display: none">
-                <div class="info">Say YES if you want to make my life whole.</div>
-                <div class="info">a NO will literally broke my heart :( and make this cute rabbit eaten.</div>
-                <div class="info">or you may choose not to answer right now, I can wait forever for you.</div>
-                <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
-                <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
-                <div id="blackRec" style="background-color: black; display: none; width:300px; height: 225px"></div>
                 <div class="btn-area">
-                    <button type="button" onclick="answer(true)">Yes</button>
-                    <button type="button" onclick="answer(false)">No</button>
+                    <button type="button" id="btn1" class="button green" onclick="answer(true)">Yes</button>
+                    <button type="button" id="btn2" class="button red" onclick="answer(false)">No</button>
+                </div>
+                <div class="info">Say YES if you wish to make me the luckiest person on earth and make my life whole</div>
+                <div class="info">a no will literally broke my heart :( and resulting in this cute rabbit get eaten</div>
+                <div class="info">or you may choose not to answer right now, I can wait forever for you</div>
+                <div class="img-container">
+                    <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
+                    <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
+                    <div id="blackRec">
+                        She said no T_T
+                    </div>
                 </div>
             </div>
         </div>
 
         <script>
+            $( "#name" ).fadeIn(2000, function() {
+                setTimeout(function() {
+                    $( "#msg1" ).fadeIn(2000, function() {
+
+                    });
+                },  1000);
+                setTimeout(function() {
+                    $( "#msg2" ).fadeIn(2000, function() {
+
+                    });
+                },  4000);
+            });
+            
+            setTimeout(function() {
+                $( ".welcome-screen" ).fadeOut(2000, function() {
+                    $("#grid").swipe({
+                        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+                            $(event.target).css('z-index', 4);
+                            let srcLoc = $(event.target).attr('id');
+                            let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
+                            if (targetLoc) {
+                                moveCell(event.target, direction, targetLoc);
+                            }
+                        }
+                    });
+                });
+            },  10000);
+            
             // settings
             var cellSize = 100;
             var cellGap = 10;
             let displacement = cellSize + cellGap;
-
-            $("#grid").swipe({
-                swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
-                    $(event.target).css('z-index', 4);
-                    let srcLoc = $(event.target).attr('id');
-                    let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
-                    if (targetLoc) {
-                        moveCell(event.target, direction, targetLoc);
-                    }
-                },
-                longTapThreshold: 100,
-                allowPageScroll: 'vertical'
-            });
 
             // works only for 3x3
             function getTargetLoc(src, direction) {
@@ -153,7 +182,8 @@
             }
 
             function showRabbit() {
-                $('.final-block').show();
+                $( ".final-block" ).fadeIn(2000, function() {
+                });
             }
 
             function answer(accepted) {
@@ -161,6 +191,16 @@
                     $('#rabbit1').show();
                     $('#rabbit2').hide();
                     $('#blackRec').hide();
+                    $('#grid').fadeOut(2000);
+                    $('.final-block').fadeOut(2000);
+                    $('.yes-answer').fadeIn(2000);
+                    setTimeout(function() {
+                        $('.yes-answer').click(function() {
+                            $('#grid').fadeIn(2000);
+                            $('.final-block').fadeIn(2000);
+                            $('.yes-answer').fadeOut(2000);
+                        })
+                    }, 1000)
                 } else {
                     $('#rabbit1').hide();
                     $('#rabbit2').show();
@@ -170,6 +210,7 @@
                     }, 1000);
                 }
             }
+
         </script>
 	</body>
 </html>
