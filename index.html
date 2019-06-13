@@ -3,90 +3,123 @@
 	<head>
 		<title>Hi Fieny!</title>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-        <script src="jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+        <link rel="stylesheet" href="styles.css"/>
+        <script src="jquery-2.1.4.min.js"></script>
         <script src="jquery.touchSwipe.min.js"></script>
-		<link rel="stylesheet" href="styles.css"/>
 	</head>
 	<body class="body">
+        <div class="landing">
+            <div class="dob">
+                Enter your date of birth
+            </div>
+            <div>
+                <input id="dob1" type="number" placeholder="DD">
+                <input id="dob2" type="number" placeholder="MM">
+            </div>
+        </div>
+        <div class="welcome-screen">
+            <div class="welcome-screen-content">
+                <img src="hername.svg" alt="name" id="name" class="hidden">
+                <img src="msg1.svg" alt="name" id="msg1" class="hidden">
+                <img src="msg2.svg" alt="name" id="msg2" class="hidden">
+            </div>
+        </div>
+        <div class="yes-answer">Thank you for saying yes!
+            <br>I will love you with all my heart
+        </div>
         <div class="wrapper">
-            <div class="welcome-screen">
-                <div class="welcome-screen-content">
-                    <img src="hername.svg" alt="name" id="name" class="hidden">
-                    <img src="msg1.svg" alt="name" id="msg1" class="hidden">
-                    <img src="msg2.svg" alt="name" id="msg2" class="hidden">
+            <div class="content">
+                <div id="grid">
+                    <div class="container1 cell img4" id="1" checker="4">
+                    </div>
+                    <div class="container2 cell img9" id="2" checker="9">
+                    </div>
+                    <div class="container3 cell img1" id="3" checker="1">
+                    </div>
+                    <div class="container4 cell img6" id="4" checker="6">
+                    </div>
+                    <div class="container5 cell img7" id="5" checker="7">
+                    </div>
+                    <div class="container6 cell img2" id="6" checker="2">
+                    </div>
+                    <div class="container7 cell img8" id="7" checker="8">
+                    </div>
+                    <div class="container8 cell img5" id="8" checker="5">
+                    </div>
+                    <div class="container9 cell img3" id="9" checker="3">
+                    </div>
                 </div>
-            </div>
-            <div class="yes-answer">Thank you for saying yes!
-                <br>I will love you with all my heart
-            </div>
-            <div id="grid">
-                <div class="container1 cell img4" id="1" checker="4">
-                </div>
-                <div class="container2 cell img9" id="2" checker="9">
-                </div>
-                <div class="container3 cell img1" id="3" checker="1">
-                </div>
-                <div class="container4 cell img6" id="4" checker="6">
-                </div>
-                <div class="container5 cell img7" id="5" checker="7">
-                </div>
-                <div class="container6 cell img2" id="6" checker="2">
-                </div>
-                <div class="container7 cell img8" id="7" checker="8">
-                </div>
-                <div class="container8 cell img5" id="8" checker="5">
-                </div>
-                <div class="container9 cell img3" id="9" checker="3">
-                </div>
-            </div>
 
-            <div class="final-block" style="display: none">
-                <div class="btn-area">
-                    <button type="button" id="btn1" class="button green" onclick="answer(true)">Yes</button>
-                    <button type="button" id="btn2" class="button red" onclick="answer(false)">No</button>
-                </div>
-                <div class="info">Say YES if you wish to make me the luckiest person on earth and make my life whole</div>
-                <div class="info">a no will literally broke my heart :( and resulting in this cute rabbit get eaten</div>
-                <div class="info">or you may choose not to answer right now, I can wait forever for you</div>
-                <div class="img-container">
-                    <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
-                    <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
-                    <div id="blackRec">
-                        She said no T_T
+                <div class="final-block" style="display: none">
+                    <div class="btn-area">
+                        <button type="button" id="btn1" class="button green" onclick="answer(true)">Yes</button>
+                        <button type="button" id="btn2" class="button red" onclick="answer(false)">No</button>
+                    </div>
+                    <div class="info">Say YES if you wish to make me the luckiest person on earth and make my life whole</div>
+                    <div class="info">a no will literally broke my heart :( and resulting in this cute rabbit get eaten</div>
+                    <div class="info">or you may choose not to answer right now, I can wait forever for you</div>
+                    <div class="img-container">
+                        <img src="rabbit.gif" alt="rabbit1" id="rabbit1" width="300px">
+                        <img src="rabbittrap.gif" alt="rabbit2" id="rabbit2" width="300px" style="display: none">
+                        <div id="blackRec">
+                            She said no T_T
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            $( "#name" ).fadeIn(2000, function() {
-                setTimeout(function() {
-                    $( "#msg1" ).fadeIn(2000, function() {
-
-                    });
-                },  1000);
-                setTimeout(function() {
-                    $( "#msg2" ).fadeIn(2000, function() {
-
-                    });
-                },  4000);
+            $('#dob1').on('input', function() { 
+                let dob1 = parseInt($(this).val());
+                let dob2 = parseInt($('#dob2').val());
+                
+                if (dob1 === 4 && dob2 === 1) {
+                    start();
+                }
             });
-            
-            setTimeout(function() {
-                $( ".welcome-screen" ).fadeOut(2000, function() {
-                    $("#grid").swipe({
-                        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
-                            $(event.target).css('z-index', 4);
-                            let srcLoc = $(event.target).attr('id');
-                            let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
-                            if (targetLoc) {
-                                moveCell(event.target, direction, targetLoc);
-                            }
-                        }
-                    });
+
+            $('#dob2').on('input', function() { 
+                let dob2 = parseInt($(this).val());
+                let dob1 = parseInt($('#dob1').val());
+                
+                if (dob1 === 4 && dob2 === 1) {
+                    start();
+                }
+            });
+
+            function start() {
+                $('.landing').hide();
+                $( "#name" ).fadeIn(2000, function() {
+                    setTimeout(function() {
+                        $( "#msg1" ).fadeIn(2000, function() {
+
+                        });
+                    },  1000);
+                    setTimeout(function() {
+                        $( "#msg2" ).fadeIn(2000, function() {
+
+                        });
+                    },  4000);
                 });
-            },  10000);
+            
+                setTimeout(function() {
+                    $( ".welcome-screen" ).fadeOut(2000, function() {
+                        $("#grid").swipe({
+                            swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+                                $(event.target).css('z-index', 4);
+                                let srcLoc = $(event.target).attr('id');
+                                let targetLoc = getTargetLoc(parseInt(srcLoc), direction);
+                                if (targetLoc) {
+                                    moveCell(event.target, direction, targetLoc);
+                                }
+                            }
+                        });
+                    });
+                },  10000);
+            }
+            
             
             // settings
             var cellSize = 100;
@@ -144,9 +177,10 @@
                 swapId($(domCell), $(`#${targetLoc}`));
                 $(domCell).css('z-index', 3);
                 if (checkTheTruth()) {
-                    $("#grid").swipe('destroy');
+                    $("#grid").swipe('disable');
                     animateToCenter();
                     setTimeout(function() {
+                        $("#grid").swipe('destroy');
                         showRabbit();
                     }, 1000);
                 }
@@ -169,6 +203,8 @@
                 return result;
             }
 
+
+
             function animateToCenter() {
                 $('#1').animate({top: '+=10', left: '+=10'}, 500);
                 $('#2').animate({top: '+=10'}, 500);
@@ -188,19 +224,13 @@
 
             function answer(accepted) {
                 if (accepted) {
-                    $('#rabbit1').show();
-                    $('#rabbit2').hide();
-                    $('#blackRec').hide();
-                    $('#grid').fadeOut(2000);
-                    $('.final-block').fadeOut(2000);
                     $('.yes-answer').fadeIn(2000);
                     setTimeout(function() {
                         $('.yes-answer').click(function() {
-                            $('#grid').fadeIn(2000);
-                            $('.final-block').fadeIn(2000);
-                            $('.yes-answer').fadeOut(2000);
-                        })
-                    }, 1000)
+                            $('.yes-answer').fadeOut(1000);
+                            $('.yes-answer').off('click');
+                        });
+                    }, 1000);
                 } else {
                     $('#rabbit1').hide();
                     $('#rabbit2').show();
@@ -210,7 +240,6 @@
                     }, 1000);
                 }
             }
-
         </script>
 	</body>
 </html>
