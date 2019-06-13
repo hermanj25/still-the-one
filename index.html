@@ -31,24 +31,15 @@
         <div class="wrapper">
             <div class="content">
                 <div id="grid">
-                    <div class="container1 cell img4" id="1" checker="4">
-                    </div>
-                    <div class="container2 cell img9" id="2" checker="9">
-                    </div>
-                    <div class="container3 cell img1" id="3" checker="1">
-                    </div>
-                    <div class="container4 cell img6" id="4" checker="6">
-                    </div>
-                    <div class="container5 cell img7" id="5" checker="7">
-                    </div>
-                    <div class="container6 cell img2" id="6" checker="2">
-                    </div>
-                    <div class="container7 cell img8" id="7" checker="8">
-                    </div>
-                    <div class="container8 cell img5" id="8" checker="5">
-                    </div>
-                    <div class="container9 cell img3" id="9" checker="3">
-                    </div>
+                    <div class="container1 cell img4" id="1" checker="4"></div>
+                    <div class="container2 cell img9" id="2" checker="9"></div>
+                    <div class="container3 cell img1" id="3" checker="1"></div>
+                    <div class="container4 cell img6" id="4" checker="6"></div>
+                    <div class="container5 cell img7" id="5" checker="7"></div>
+                    <div class="container6 cell img2" id="6" checker="2"></div>
+                    <div class="container7 cell img8" id="7" checker="8"></div>
+                    <div class="container8 cell img5" id="8" checker="5"></div>
+                    <div class="container9 cell img3" id="9" checker="3"></div>
                 </div>
 
                 <div class="final-block" style="display: none">
@@ -224,6 +215,8 @@
 
             function answer(accepted) {
                 if (accepted) {
+                    $('#rabbit1').show();
+                    $('#blackRec').hide();
                     $('.yes-answer').fadeIn(2000);
                     setTimeout(function() {
                         $('.yes-answer').click(function() {
